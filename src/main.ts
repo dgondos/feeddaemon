@@ -1,9 +1,15 @@
 import { Daemon } from "./daemon";
+import { Config } from "./config/config"
 
 function loop() {
     Daemon.run()
-    setTimeout(loop, 1000)
+    Config.read()
+        .then(config => setTimeout(loop, config.daemonIntervalMs))
+        .catch(e => {
+            console.log("Config file couldn't be read, exiting.")
+            throw e
+        })
 }
 
-console.log("Starting loop")
+console.log("Starting daemon")
 loop()
