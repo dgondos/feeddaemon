@@ -1,10 +1,10 @@
 import { readFile } from "fs"
 import { promisify } from "util"
-import { Feed } from "./feed"
+import { Group } from "./group"
 
 export class Config {
     daemonIntervalMs: number = 1000
-    feeds: Array<Feed> = []
+    groups: Array<Group> = []
 
     static read = function(): Promise<Config> {
         return promisify(readFile)("build/config.json") // TODO test only, sort this out
